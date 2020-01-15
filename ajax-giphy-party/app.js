@@ -1,6 +1,8 @@
 
 $('form').on('submit', submitKeyword);
 
+$('#remove').on("click", removeGifs);
+
 async function submitKeyword(e) {
     e.preventDefault();
     const apiKey = `http://api.giphy.com/v1/gifs/search`
@@ -10,7 +12,15 @@ async function submitKeyword(e) {
             api_key: 'MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym'
         }
     })
-    console.log(search);
+    appendGifToDom(search.data.data[0].images.fixed_height.url);
 }
 
+function appendGifToDom(url) {
+    let gifImage = `<img src="${url}">`;
+    $(".container").append($(gifImage));
+}
 
+function removeGifs() {
+    $(".container").empty();
+
+}
